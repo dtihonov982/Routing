@@ -9,13 +9,17 @@
 
 using json = nlohmann::json;
 
+class CellType;
+
+using TypeInfo = std::unordered_map<std::string, CellType>;
+
 class CellType {
 public:
     CellType(const std::string& name, int width, const std::unordered_map<std::string, Pin>& pins)
     : name_(name), width_(width), pins_(pins) {
     }
 
-    static std::unordered_map<std::string, CellType> loadFromJSON(const json& j);
+    static TypeInfo loadFromJSON(const json& j);
 
 private:
     std::string name_;

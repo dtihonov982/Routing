@@ -2,10 +2,17 @@
 
 #include <string>
 
-struct Connection {
-    std::string name;
-    std::string first;
-    std::string second;
+struct Endpoint {
+    std::string cellName;
+    std::string cellPinName;
 };
 
-using Connection = std::vector<Connection>;
+struct Connection {
+    std::string name;
+    std::string firstCell;
+    std::string firstPin;
+    std::string secondCell;
+    std::string secondPin;
+};
+
+using Connections = std::vector<Connection>;

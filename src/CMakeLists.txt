@@ -4,6 +4,7 @@ set (TRACING_SRCS
           Pin.cpp
           Rect.cpp
           CellType.cpp
+          CellsLoader.cpp
 )
 
 add_library (Tracing STATIC ${TRACING_SRCS})

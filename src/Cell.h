@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
+
 #include "CellType.h"
 
 class Cell {
@@ -18,4 +20,6 @@ private:
     double x_;
     double y_;
 };
+
+using CellsMap = std::unordered_map<std::string, Cell>;
 
