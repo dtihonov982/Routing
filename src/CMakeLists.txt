@@ -5,6 +5,7 @@ set (TRACING_SRCS
           Rect.cpp
           CellType.cpp
           CellsLoader.cpp
+          CellsAllocator.cpp
 )
 
 add_library (Tracing STATIC ${TRACING_SRCS})

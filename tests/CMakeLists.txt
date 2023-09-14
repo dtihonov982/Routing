@@ -4,6 +4,8 @@ set (SRCS
           PinTest.cpp
           PinLoad.cpp
           CellTypeTest.cpp
+          CellsLoaderTest.cpp
+          CellsAllocatorTest.cpp
 )
 
 foreach (SRC IN LISTS SRCS)

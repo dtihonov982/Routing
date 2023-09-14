@@ -4,13 +4,15 @@
 #include "Pin.h"
 #include "Rect.h"
 #include "CellType.h"
+#include "CellsLoader.h"
+#include "CellsAllocator.h"
 
 #include "nlohmann/json.hpp"
 
 using json = nlohmann::json;
 
 int main(int argc, char** argv) {
-    if(argc != 2)
+    if(argc != 3)
     {
         std::cerr <<
             "Usage: nlohmann <filename> <filename>"
@@ -20,7 +22,13 @@ int main(int argc, char** argv) {
     std::ifstream f(argv[1]);
     json data = json::parse(f);
 
-    auto pins = CellType::loadFromJSON(data);
+    auto types = CellType::loadFromJSON(data);
+
+    std::ifstream f2(argv[2]);
+    json data2 = json::parse(f2);
+    auto p = CellsLoader::loadFromJSON(types, data2);
+
+    auto p2 = CellsAllocator::allocateByLadder(p.first);
 
     return 0;
 }

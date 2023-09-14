@@ -11,14 +11,16 @@ public:
     : name_(name), type_(type) {
     }
 
-    void setX(double x) { x_ = x; }
-    void setY(double y) { y_ = y; }
+    void setX(int x) { x_ = x; }
+    void setY(int y) { y_ = y; }
+
+    const CellType& getType() { return type_; }
 
 private:
     std::string name_;
     CellType type_;
-    double x_;
-    double y_;
+    int x_ = 0;
+    int y_ = 0;
 };
 
 using CellsMap = std::unordered_map<std::string, Cell>;

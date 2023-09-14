@@ -21,6 +21,9 @@ public:
 
     static TypeInfo loadFromJSON(const json& j);
 
+    int getWidth() { return width_; }
+    int getHeight() { return height_; }
+
 private:
     std::string name_;
     int width_;

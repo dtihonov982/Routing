@@ -6,7 +6,7 @@
 #include "nlohmann/json.hpp"
 
 #include "Cell.h"
-#include "Connection.h"
+#include "Endpoint.h"
 
 using json = nlohmann::json;
 
