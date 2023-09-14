@@ -1,16 +1,21 @@
 #pragma once
 
-#include <vector>
 #include <string>
+#include "CellType.h"
 
 class Cell {
 public:
-    Cell(const std::string& name, const std::vector<Pin>& pins)
-    : name_(name), pins_(pins) {
+    Cell(const std::string& name, const CellType& type)
+    : name_(name), type_(type) {
     }
 
+    void setX(double x) { x_ = x; }
+    void setY(double y) { y_ = y; }
 
 private:
     std::string name_;
-    std::vector<Pin> pins_;
+    CellType type_;
+    double x_;
+    double y_;
 };
+

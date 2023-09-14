@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.25)
 project(PathTracing)
 #add_subdirectory(programs)
-#add_subdirectory(src)
+add_subdirectory(src)
 add_subdirectory(tests)
