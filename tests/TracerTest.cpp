@@ -6,6 +6,7 @@
 #include "CellType.h"
 #include "CellsLoader.h"
 #include "CellsAllocator.h"
+#include "Tracer.h"
 
 #include "nlohmann/json.hpp"
 
@@ -26,9 +27,12 @@ int main(int argc, char** argv) {
 
     std::ifstream f2(argv[2]);
     json data2 = json::parse(f2);
-    auto p = CellsLoader::loadFromJSON(types, data2);
 
-    auto p2 = CellsAllocator::allocate(p.first);
+    auto [cells, conns] = CellsLoader::loadFromJSON(types, data2);
+
+    auto [width, height] = CellsAllocator::allocate(cells);
+
+    auto wires = Tracer::tracePaths(cells, conns, width, height);
 
     return 0;
 }

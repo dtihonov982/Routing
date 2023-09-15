@@ -6,6 +6,7 @@ set (SRCS
           CellTypeTest.cpp
           CellsLoaderTest.cpp
           CellsAllocatorTest.cpp
+          TracerTest.cpp
 )
 
 foreach (SRC IN LISTS SRCS)
