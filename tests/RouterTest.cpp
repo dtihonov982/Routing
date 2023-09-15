@@ -6,7 +6,7 @@
 #include "CellType.h"
 #include "CellsLoader.h"
 #include "CellsAllocator.h"
-#include "Tracer.h"
+#include "Router.h"
 
 #include "nlohmann/json.hpp"
 
@@ -32,11 +32,11 @@ int main(int argc, char** argv) {
 
     auto [width, height] = CellsAllocator::allocate(cells);
 
-    auto wires = Tracer::tracePaths(cells, conns, width, height);
+    auto wires = Router::route(cells, conns, width, height);
 
     std::ofstream outFile("output.json");
     json out;
-    Tracer::writeSizeInJSON(out, width, height);
+    Router::writeSizeInJSON(out, width, height);
     Cell::toJSON(out, cells);
     wires.toJSON(out);
 

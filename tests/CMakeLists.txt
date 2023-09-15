@@ -6,7 +6,7 @@ set (SRCS
           CellTypeTest.cpp
           CellsLoaderTest.cpp
           CellsAllocatorTest.cpp
-          TracerTest.cpp
+          RouterTest.cpp
 )
 
 foreach (SRC IN LISTS SRCS)
@@ -14,7 +14,7 @@ foreach (SRC IN LISTS SRCS)
     add_executable(${TGT} ${SRC})
     target_include_directories (${TGT} PUBLIC "${PROJECT_SOURCE_DIR}/src"
                                               "${PROJECT_SOURCE_DIR}/include")
-    target_link_libraries (${TGT} PRIVATE Tracing)
+    target_link_libraries (${TGT} PRIVATE Router)
     target_compile_options (${TGT} PUBLIC -fsanitize=address)
     target_link_options (${TGT} PUBLIC -fsanitize=address)
 endforeach ()

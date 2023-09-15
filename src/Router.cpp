@@ -2,7 +2,7 @@
 #include <algorithm>
 #include <cmath>
 
-#include "Tracer.h"
+#include "Router.h"
 #include "Exception.h"
 #include "Point.h"
 
@@ -74,7 +74,7 @@ Wires createWires(std::vector<Point>& points, int num) {
 }
 
 
-Wires Tracer::tracePaths(const CellsMap& cells, const Connections& conns, int& width, int& height) {
+Wires Router::route(const CellsMap& cells, const Connections& conns, int& width, int& height) {
     int numOfConn = 0;
     Wires result;
     for (auto& [connName, endpoints]: conns) {
@@ -86,7 +86,7 @@ Wires Tracer::tracePaths(const CellsMap& cells, const Connections& conns, int& w
     return result;
 }
 
-void Tracer::writeSizeInJSON(json& j, int width, int height) {
+void Router::writeSizeInJSON(json& j, int width, int height) {
     std::vector<int> sizeVect{width, height};
     j["size"] = sizeVect;
 }

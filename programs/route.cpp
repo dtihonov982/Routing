@@ -4,7 +4,7 @@
 
 #include "CellsLoader.h"
 #include "CellsAllocator.h"
-#include "Tracer.h"
+#include "Router.h"
 #include "Exception.h"
 
 #include "nlohmann/json.hpp"
@@ -23,6 +23,7 @@ int main(int argc, char** argv) try {
         return EXIT_FAILURE;
     }
 
+    // Loading cells types from json file
     json cellsTypeJson = json::parse(cellsJsonFile);
     auto types = CellType::loadFromJSON(cellsTypeJson);
 
@@ -31,11 +32,15 @@ int main(int argc, char** argv) try {
         std::cerr << "Can not open " << argv[1] << std::endl;
         return EXIT_FAILURE;
     }
+
     json inputJson = json::parse(inputJsonFile);
 
+    // Loading cells and connections between them from file.
     auto [cells, conns] = CellsLoader::loadFromJSON(types, inputJson);
+    // Place cells on an area. Getting width and height of the area.
     auto [width, height] = CellsAllocator::allocate(cells);
-    auto wires = Tracer::tracePaths(cells, conns, width, height);
+    // Creating wires in the area.
+    auto wires = Router::route(cells, conns, width, height);
 
     std::ofstream outFile(argv[3]);
     if (!outFile) {
@@ -43,9 +48,10 @@ int main(int argc, char** argv) try {
         return EXIT_FAILURE;
     }
 
+    // Writing results of the program into output file.
     try {
         json out;
-        Tracer::writeSizeInJSON(out, width, height);
+        Router::writeSizeInJSON(out, width, height);
         Cell::toJSON(out, cells);
         wires.toJSON(out);
         outFile << out;

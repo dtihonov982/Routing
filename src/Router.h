@@ -9,9 +9,9 @@ using json = nlohmann::json;
 #include "Cell.h"
 #include "Endpoint.h"
 
-class Tracer {
+class Router {
 public:
-    static Wires tracePaths(const CellsMap& cells, const Connections& conns, int& width, int& height);
+    static Wires route(const CellsMap& cells, const Connections& conns, int& width, int& height);
     static void writeSizeInJSON(json& j, int width, int height);
 };
 

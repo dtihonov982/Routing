@@ -1,19 +1,19 @@
 cmake_minimum_required(VERSION 3.25)
 
-set (TRACING_SRCS 
+set (ROUTER_SRCS 
           Pin.cpp
           Rect.cpp
           CellType.cpp
           Cell.cpp
           CellsLoader.cpp
           CellsAllocator.cpp
-          Tracer.cpp
+          Router.cpp
           Wires.cpp
 )
 
-add_library (Tracing STATIC ${TRACING_SRCS})
+add_library (Router STATIC ${ROUTER_SRCS})
 
-target_include_directories (Tracing PUBLIC "${PROJECT_SOURCE_DIR}/src"
+target_include_directories (Router PUBLIC "${PROJECT_SOURCE_DIR}/src"
                                            "${PROJECT_SOURCE_DIR}/include")
-target_compile_options (Tracing PUBLIC -fsanitize=address)
-target_link_options (Tracing PUBLIC -fsanitize=address)
+target_compile_options (Router PUBLIC -fsanitize=address)
+target_link_options (Router PUBLIC -fsanitize=address)
