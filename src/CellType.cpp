@@ -29,3 +29,10 @@ std::unordered_map<std::string, CellType> CellType::loadFromJSON(const json& j) 
     }
     return result;
 }
+
+const Pin& CellType::getPin(const std::string& name) const {
+    auto it = pins_.find(name);
+    if (it == pins_.end())
+        throw Exception("Can't find pin with name ", name, ".");
+    return it->second;
+}

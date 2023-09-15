@@ -4,9 +4,11 @@ set (TRACING_SRCS
           Pin.cpp
           Rect.cpp
           CellType.cpp
+          Cell.cpp
           CellsLoader.cpp
           CellsAllocator.cpp
           Tracer.cpp
+          Wires.cpp
 )
 
 add_library (Tracing STATIC ${TRACING_SRCS})

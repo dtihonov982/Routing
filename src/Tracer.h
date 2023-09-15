@@ -12,5 +12,6 @@ using json = nlohmann::json;
 class Tracer {
 public:
     static Wires tracePaths(const CellsMap& cells, const Connections& conns, int& width, int& height);
+    static void writeSizeInJSON(json& j, int width, int height);
 };
 

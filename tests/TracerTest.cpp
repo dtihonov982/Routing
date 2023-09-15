@@ -34,5 +34,13 @@ int main(int argc, char** argv) {
 
     auto wires = Tracer::tracePaths(cells, conns, width, height);
 
+    std::ofstream outFile("output.json");
+    json out;
+    Tracer::writeSizeInJSON(out, width, height);
+    Cell::toJSON(out, cells);
+    wires.toJSON(out);
+
+    outFile << out;
+
     return 0;
 }

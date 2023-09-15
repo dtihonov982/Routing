@@ -10,4 +10,5 @@ struct Rect {
     double y1;
 
     static Rect loadFromJSON(const json& j);
+    void toJSON(json& j) const;
 };

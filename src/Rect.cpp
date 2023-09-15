@@ -13,3 +13,7 @@ Rect Rect::loadFromJSON(const json& j) {
     rect.y1 = *it++;
     return rect;
 }
+
+void Rect::toJSON(json& j) const {
+    j.push_back({x0, y0, x1, y1});
+}

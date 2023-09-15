@@ -23,9 +23,12 @@ public:
 
     static TypeInfo loadFromJSON(const json& j);
 
-    int getWidth() { return width_; }
-    int getHeight() { return height_; }
+    int getWidth() const { return width_; }
+    int getHeight() const { return height_; }
 
+    std::string getName() const { return name_; }
+
+    const Pin& getPin(const std::string& name) const;
 private:
     std::string name_;
     int width_;

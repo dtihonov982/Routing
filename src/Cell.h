@@ -5,6 +5,13 @@
 
 #include "CellType.h"
 
+#include "nlohmann/json.hpp"
+using json = nlohmann::json;
+
+class Cell;
+
+using CellsMap = std::unordered_map<std::string, Cell>;
+
 class Cell {
 public:
     Cell(const std::string& name, const CellType& type)
@@ -14,7 +21,14 @@ public:
     void setX(int x) { x_ = x; }
     void setY(int y) { y_ = y; }
 
-    const CellType& getType() { return type_; }
+    int getX() const { return x_; }
+    int getY() const { return y_; }
+
+    const CellType& getType() const { return type_; }
+
+    void toJSON(json& j) const;
+    
+    static void toJSON(json& j, const CellsMap& cells);
 
 private:
     std::string name_;
@@ -22,6 +36,4 @@ private:
     int x_ = 0;
     int y_ = 0;
 };
-
-using CellsMap = std::unordered_map<std::string, Cell>;
 
