@@ -6,10 +6,30 @@
 #include "Exception.h"
 #include "Point.h"
 
+double getConnLevel(int num);
+std::vector<Point> resolveEndpoints(const CellsMap& cells, const std::vector<Endpoint>& eps);
+Rect makeVerticalWire(const Point& bottom, double upY);
+Rect makeVia(const Point& p);
+Wires createWires(std::vector<Point>& points, int num);
+
+// Create wires that represents given connections and updates height.
+Wires Router::route(const CellsMap& cells, const Connections& conns, int& width, int& height) {
+    int numOfConn = 0;
+    Wires result;
+    for (auto& [connName, endpoints]: conns) {
+        auto points = resolveEndpoints(cells, endpoints);
+        auto wires = createWires(points, numOfConn++);
+        result.addWires(wires);
+    }
+    height = std::ceil(getConnLevel(numOfConn));
+    return result;
+}
+
 double getConnLevel(int num) {
     return CELL_HEIGHT + WIRE_MIN_WIDTH * (1 + 2 * num);
 }
 
+// For each endpoint finds its coordinates (x, y) on the plane
 std::vector<Point> resolveEndpoints(const CellsMap& cells, const std::vector<Endpoint>& eps) {
     std::vector<Point> result;
     // First find cell and its position. Then find a position of a pin on the cell.
@@ -43,17 +63,20 @@ Rect makeVia(const Point& p) {
     return {p.x, p.y, p.x + WIRE_MIN_WIDTH, p.y + WIRE_MIN_WIDTH};
 }
 
+// Create wires that connets given points. Num arguments need to evaluate height of horizontal wire.
 Wires createWires(std::vector<Point>& points, int num) {
     if (points.size() < 2)
         return Wires{};
 
     double horizontalWireY = getConnLevel(num);
+    // Sort points to find a width of the horizontal wire.
     std::sort(points.begin(), points.end(),
         [] (const Point& lhs, const Point& rhs) {
             return lhs.x < rhs.x;
         }
     );
 
+    // add horizontal wire
     auto& firstPoint = points[0];
     auto& lastPoint = *points.rbegin();
     Rect hWire = {firstPoint.x, horizontalWireY,
@@ -73,19 +96,7 @@ Wires createWires(std::vector<Point>& points, int num) {
     return result;
 }
 
-
-Wires Router::route(const CellsMap& cells, const Connections& conns, int& width, int& height) {
-    int numOfConn = 0;
-    Wires result;
-    for (auto& [connName, endpoints]: conns) {
-        auto points = resolveEndpoints(cells, endpoints);
-        auto wires = createWires(points, numOfConn++);
-        result.addWires(wires);
-    }
-    height = std::ceil(getConnLevel(numOfConn));
-    return result;
-}
-
+// Write size of an area to json file
 void Router::writeSizeInJSON(json& j, int width, int height) {
     std::vector<int> sizeVect{width, height};
     j["size"] = sizeVect;

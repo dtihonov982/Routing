@@ -12,8 +12,7 @@ using json = nlohmann::json;
 #define CELL_HEIGHT 1
 
 class CellType;
-
-using TypeInfo = std::unordered_map<std::string, CellType>;
+using TypesMap = std::unordered_map<std::string, CellType>;
 
 class CellType {
 public:
@@ -21,7 +20,8 @@ public:
     : name_(name), width_(width), pins_(pins) {
     }
 
-    static TypeInfo loadFromJSON(const json& j);
+    // Using TypesMap instead vector for fast searching a type while loading cells in CellsLoader
+    static TypesMap fromJSON(const json& j);
 
     int getWidth() const { return width_; }
     int getHeight() const { return height_; }

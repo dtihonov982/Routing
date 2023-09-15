@@ -1,27 +1,11 @@
 #include "CellsLoader.h"
 #include "Exception.h"
 
-void addConnections(Connections& info, const std::string& cellName, const json& j) {
-    if (!j.is_object()) {
-        throw Exception("Error while loading information about connections.");
-    }
+void addConnections(Connections& info, const std::string& cellName, const json& j);
 
-    for (auto& [pinName, connName]: j.items()) {
-        Endpoint ep{cellName, pinName};
-        info[connName].push_back(ep);
-    }
-}
+Cell createCell(const std::string& cellName, const TypesMap& types, const std::string& typeName);
 
-Cell createCell(const std::string& cellName, const TypeInfo& types, const std::string& typeName) {
-    auto it = types.find(typeName);
-    if (it == types.end()) {
-        throw Exception("Bad cell type ", typeName);
-    }
-    const CellType& type = it->second;
-    return Cell(cellName, type);
-}
-
-std::pair<CellsMap, Connections> CellsLoader::loadFromJSON(const TypeInfo& types, const json& j) {
+std::pair<CellsMap, Connections> CellsLoader::fromJSON(const TypesMap& types, const json& j) {
     if (!j.is_object()) {
         throw Exception("Error while loading cells from json.");
     }
@@ -52,5 +36,29 @@ std::pair<CellsMap, Connections> CellsLoader::loadFromJSON(const TypeInfo& types
     }
 
     return {cells, conns};
+}
+
+// Connections stores apart from each cell. There is no need to know about cell while routing connections.
+// But it is need to know about each pin position while routing. In this solution each connection stores name of cell and pin.
+// Router finds related cell and pin by his name and evaluates pin coords.
+void addConnections(Connections& info, const std::string& cellName, const json& j) {
+    if (!j.is_object()) {
+        throw Exception("Error while loading information about connections.");
+    }
+
+    for (auto& [pinName, connName]: j.items()) {
+        Endpoint ep{cellName, pinName};
+        info[connName].push_back(ep);
+    }
+}
+
+// Create concrete cell with name and type.
+Cell createCell(const std::string& cellName, const TypesMap& types, const std::string& typeName) {
+    auto it = types.find(typeName);
+    if (it == types.end()) {
+        throw Exception("Bad cell type ", typeName);
+    }
+    const CellType& type = it->second;
+    return Cell(cellName, type);
 }
 

@@ -2,6 +2,7 @@
 
 #include <string>
 
+// Endpoint is a pin of certian cell
 struct Endpoint {
     std::string cellName;
     std::string cellPinName;

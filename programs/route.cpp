@@ -25,7 +25,7 @@ int main(int argc, char** argv) try {
 
     // Loading cells types from json file
     json cellsTypeJson = json::parse(cellsJsonFile);
-    auto types = CellType::loadFromJSON(cellsTypeJson);
+    auto types = CellType::fromJSON(cellsTypeJson);
 
     std::ifstream inputJsonFile(argv[1]);
     if (!inputJsonFile) {
@@ -36,7 +36,7 @@ int main(int argc, char** argv) try {
     json inputJson = json::parse(inputJsonFile);
 
     // Loading cells and connections between them from file.
-    auto [cells, conns] = CellsLoader::loadFromJSON(types, inputJson);
+    auto [cells, conns] = CellsLoader::fromJSON(types, inputJson);
     // Place cells on an area. Getting width and height of the area.
     auto [width, height] = CellsAllocator::allocate(cells);
     // Creating wires in the area.
