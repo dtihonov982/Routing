@@ -34,6 +34,7 @@ public:
     void addWires(const Wires& wires) { wires_.addWires(wires); }
 
     Point getCoordsOfEndpoint(const Endpoint& e) const;
+    std::vector<Point> getCoordsOfEndpoints(const std::vector<Endpoint>& eps) const;
 
     json toJSON() const;
 private:

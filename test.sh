@@ -1,2 +1,2 @@
-build/programs/route data/input0.json data/cells0.json output0.json &&
-tests/draw.py data/cells0.json output0.json
+build/programs/route data/input2.json data/cells2.json output2.json &&
+tests/draw.py data/cells2.json output2.json

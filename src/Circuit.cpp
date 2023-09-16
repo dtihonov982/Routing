@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "Circuit.h"
 #include "Exception.h"
 
@@ -34,4 +36,14 @@ json Circuit::toJSON() const {
     wires_.toJSON(j);
 
     return j;
+}
+
+std::vector<Point> Circuit::getCoordsOfEndpoints(const std::vector<Endpoint>& eps) const {
+    std::vector<Point> result(eps.size());
+    std::transform(eps.begin(), eps.end(), result.begin(), 
+        [&] (const Endpoint& ep) {
+            return getCoordsOfEndpoint(ep);
+        }
+    );
+    return result;
 }

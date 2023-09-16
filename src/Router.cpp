@@ -7,34 +7,22 @@
 #include "Exception.h"
 #include "Point.h"
 
+Wires createWires(std::vector<Point>&& points, int num);
 double getConnLevel(int num);
-std::vector<Point> resolveEndpoints(const Circuit& circuit, const std::vector<Endpoint>& eps);
 Rect makeVerticalWire(const Point& bottom, double upY);
 Rect makeVia(double x, double y);
-Wires createWires(std::vector<Point>&& points, int num);
 
 // Create wires that represents given connections and updates height.
 void Router::route(Circuit& circuit, const ConnectionsMap& conns) {
     int numOfConn = 0;
     for (auto& [connName, endpoints]: conns) {
-        auto points = resolveEndpoints(circuit, endpoints);
+        auto points = circuit.getCoordsOfEndpoints(endpoints);
         auto wires = createWires(std::move(points), numOfConn++);
         circuit.addWires(wires);
     }
-    // There is space above top horizontal wire. But height is integer, so it is need to ceil.
+    // There is space < 1.0 above top horizontal wire. But height is integer, so it is need to ceil.
     int height = std::ceil(getConnLevel(numOfConn));
     circuit.setHeight(height);
-}
-
-// For each endpoint finds its coordinates (x, y) on the plane
-std::vector<Point> resolveEndpoints(const Circuit& circuit, const std::vector<Endpoint>& eps) {
-    std::vector<Point> result;
-    for (auto& e: eps) {
-        Point p = circuit.getCoordsOfEndpoint(e);
-        result.push_back(p);
-    }
-
-    return result;
 }
 
 // Create wires that connets given points. Num arguments need to evaluate height of horizontal wire.

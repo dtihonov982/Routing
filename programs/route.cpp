@@ -46,8 +46,9 @@ try {
     auto [cells, conns] = CellsLoader::fromJSON(types, inputJson);
     // Place cells on an area. Getting width and height of the area.
     auto [width, height] = CellsAllocator::allocate(cells);
-    // Creating wires in the area.
+
     Circuit circuit(std::move(cells), width, height);
+    // Creating wires on circuit
     Router::route(circuit, conns);
 
     std::ofstream outFile(argv[3]);
@@ -61,7 +62,7 @@ try {
         outFile << circuit.toJSON();
     }
     catch (const Exception& e) {
-        std::cerr << "Error while saving results in " << argv[3] << ": "
+        std::cerr << "Error while saving circuit in " << argv[3] << ": "
             << e.what() << std::endl;
         return EXIT_FAILURE;
     }
