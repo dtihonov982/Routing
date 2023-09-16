@@ -58,11 +58,7 @@ try {
 
     // Writing results of the program into output file.
     try {
-        json out;
-        Router::writeSizeInJSON(out, circuit.getWidth(), circuit.getHeight());
-        Cell::toJSON(out, circuit.getCells());
-        circuit.getWires().toJSON(out);
-        outFile << out;
+        outFile << circuit.toJSON();
     }
     catch (const Exception& e) {
         std::cerr << "Error while saving results in " << argv[3] << ": "
