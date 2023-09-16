@@ -8,8 +8,9 @@
 #include <stdexcept>
 #include <utility>
 
-#include "CellsLoader.h"
 #include "Exception.h"
+#include "CellType.h"
+#include "CellsLoader.h"
 #include "CircuitBuilder.h"
 
 #include "nlohmann/json.hpp"
@@ -31,7 +32,14 @@ try {
 
     // Loading cells types from json file
     json cellsTypeJson = json::parse(cellsJsonFile);
-    auto types = CellType::fromJSON(cellsTypeJson);
+    TypesMap types;
+    try {
+        types = CellType::fromJSON(cellsTypeJson);
+    }
+    catch (const Exception& e) {
+        std::cerr << "Can't load information about cells types: " << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 
     std::ifstream inputJsonFile(argv[1]);
     if (!inputJsonFile) {

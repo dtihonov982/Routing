@@ -38,7 +38,7 @@ Wires createWires(std::vector<Point>&& points, int numOfConn) {
         }
     );
 
-    // add horizontal wire
+    //   add horizontal wire
 
     //   +----+-------------+----+-------------+----+
     //   |Via |    hWire    |    |    hWire    |Via | 
@@ -97,10 +97,4 @@ Rect makeVerticalWire(const Point& bottom, double upY) {
 //   ^(x, y)
 Rect makeVia(double x, double y) {
     return {x, y, x + WIRE_MIN_WIDTH, y + WIRE_MIN_WIDTH};
-}
-
-// Write size of an area to json file
-void Router::writeSizeInJSON(json& j, int width, int height) {
-    std::vector<int> sizeVect{width, height};
-    j["size"] = {width, height};
 }

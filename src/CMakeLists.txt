@@ -1,15 +1,15 @@
 cmake_minimum_required(VERSION 3.25)
 
 set (ROUTER_SRCS 
-          Pin.cpp
           Rect.cpp
+          Pin.cpp
           CellType.cpp
           Cell.cpp
           CellsLoader.cpp
           CellsAllocator.cpp
-          Router.cpp
           Wires.cpp
           Circuit.cpp
+          Router.cpp
           CircuitBuilder.cpp
 )
 

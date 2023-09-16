@@ -13,6 +13,5 @@ using json = nlohmann::json;
 class Router {
 public:
     static void route(Circuit& circuit, const ConnectionsMap& conns);
-    static void writeSizeInJSON(json& j, int width, int height);
 };
 
