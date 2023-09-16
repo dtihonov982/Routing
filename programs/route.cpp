@@ -9,9 +9,8 @@
 #include <utility>
 
 #include "CellsLoader.h"
-#include "CellsAllocator.h"
-#include "Router.h"
 #include "Exception.h"
+#include "CircuitBuilder.h"
 
 #include "nlohmann/json.hpp"
 
@@ -44,12 +43,15 @@ try {
 
     // Loading cells and connections between them from file.
     auto [cells, conns] = CellsLoader::fromJSON(types, inputJson);
-    // Place cells on an area. Getting width and height of the area.
-    auto [width, height] = CellsAllocator::allocate(cells);
 
-    Circuit circuit(std::move(cells), width, height);
-    // Creating wires on circuit
-    Router::route(circuit, conns);
+    Circuit circuit;
+    try {
+        circuit = CircuitBuilder::build(std::move(cells), conns);
+    }
+    catch (const Exception& e) {
+        std::cerr << "Can't build circuit: " << e.what() << std::endl;
+        return EXIT_FAILURE;
+    }
 
     std::ofstream outFile(argv[3]);
     if (!outFile) {
