@@ -13,6 +13,6 @@ using json = nlohmann::json;
 class CellsLoader {
 public:
     // Using CellsMap for searching cells while resolving each endpoint in connection
-    static std::pair<CellsMap, Connections> fromJSON(const TypesMap& types, const json& j);
+    static std::pair<CellsMap, ConnectionsMap> fromJSON(const TypesMap& types, const json& j);
 };
 

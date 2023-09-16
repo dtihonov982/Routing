@@ -28,6 +28,7 @@ public:
 
     void toJSON(json& j) const;
     
+    static Cell createCellWithType(const std::string& cellName, const TypesMap& types, const std::string& typeName);
     static void toJSON(json& j, const CellsMap& cells);
 
 private:

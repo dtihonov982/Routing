@@ -11,7 +11,7 @@ using json = nlohmann::json;
 
 class Router {
 public:
-    static Wires route(const CellsMap& cells, const Connections& conns, int& width, int& height);
+    static Wires route(const CellsMap& cells, const ConnectionsMap& conns, int& width, int& height);
     static void writeSizeInJSON(json& j, int width, int height);
 };
 

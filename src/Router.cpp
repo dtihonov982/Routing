@@ -13,7 +13,7 @@ Rect makeVia(const Point& p);
 Wires createWires(std::vector<Point>& points, int num);
 
 // Create wires that represents given connections and updates height.
-Wires Router::route(const CellsMap& cells, const Connections& conns, int& width, int& height) {
+Wires Router::route(const CellsMap& cells, const ConnectionsMap& conns, int& width, int& height) {
     int numOfConn = 0;
     Wires result;
     for (auto& [connName, endpoints]: conns) {
