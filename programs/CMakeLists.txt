@@ -3,7 +3,7 @@ cmake_minimum_required (VERSION 3.25)
 set (SRCS route.cpp)
 set (TGT route)
 
-add_executable(${TGT} ${SRCS})
+add_executable (${TGT} ${SRCS})
 target_include_directories (${TGT} PUBLIC "${PROJECT_SOURCE_DIR}/src"
                                           "${PROJECT_SOURCE_DIR}/include")
 target_link_libraries (${TGT} PRIVATE Router)

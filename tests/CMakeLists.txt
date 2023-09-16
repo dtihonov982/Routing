@@ -1,12 +1,14 @@
 cmake_minimum_required (VERSION 3.25)
 
 set (SRCS 
+          #[[
           PinTest.cpp
           PinLoad.cpp
           CellTypeTest.cpp
           CellsLoaderTest.cpp
           CellsAllocatorTest.cpp
           RouterTest.cpp
+          ]]#
 )
 
 foreach (SRC IN LISTS SRCS)

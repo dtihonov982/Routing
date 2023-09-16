@@ -25,6 +25,7 @@ Wires Router::route(const CellsMap& cells, const Connections& conns, int& width,
     return result;
 }
 
+// Each connection has horizontal line. Height of the line is 'level' of connection.
 double getConnLevel(int num) {
     return CELL_HEIGHT + WIRE_MIN_WIDTH * (1 + 2 * num);
 }
