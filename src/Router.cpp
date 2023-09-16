@@ -8,50 +8,30 @@
 #include "Point.h"
 
 double getConnLevel(int num);
-std::vector<Point> resolveEndpoints(const CellsMap& cells, const std::vector<Endpoint>& eps);
+std::vector<Point> resolveEndpoints(const Circuit& circuit, const std::vector<Endpoint>& eps);
 Rect makeVerticalWire(const Point& bottom, double upY);
-Rect makeVia(const Point& p);
+Rect makeVia(double x, double y);
 Wires createWires(std::vector<Point>&& points, int num);
 
 // Create wires that represents given connections and updates height.
-Wires Router::route(const CellsMap& cells, const ConnectionsMap& conns, int& width, int& height) {
+void Router::route(Circuit& circuit, const ConnectionsMap& conns) {
     int numOfConn = 0;
-    Wires result;
     for (auto& [connName, endpoints]: conns) {
-        auto points = resolveEndpoints(cells, endpoints);
+        auto points = resolveEndpoints(circuit, endpoints);
         auto wires = createWires(std::move(points), numOfConn++);
-        result.addWires(wires);
+        circuit.addWires(wires);
     }
     // There is space above top horizontal wire. But height is integer, so it is need to ceil.
-    height = std::ceil(getConnLevel(numOfConn));
-    return result;
+    int height = std::ceil(getConnLevel(numOfConn));
+    circuit.setHeight(height);
 }
 
 // For each endpoint finds its coordinates (x, y) on the plane
-std::vector<Point> resolveEndpoints(const CellsMap& cells, const std::vector<Endpoint>& eps) {
+std::vector<Point> resolveEndpoints(const Circuit& circuit, const std::vector<Endpoint>& eps) {
     std::vector<Point> result;
     for (auto& e: eps) {
-        // First find cell and its position. 
-
-        auto it = cells.find(e.cellName);
-        if (it == cells.end())
-            throw Exception("Can not find ", e.cellName, " in cells");
-        auto& cell = it->second;
-
-        double x = cell.getX();
-        double y = cell.getY();
-
-        // Then find a position of a pin on the cell.
-
-        auto& cellType = cell.getType();
-        auto& pin = cellType.getPin(e.cellPinName);
-        auto pinPos = pin.getPosition();
-
-        // Add cell position and pin position on cell
-        x += pinPos.x;
-        y += pinPos.y;
-
-        result.emplace_back(x, y);
+        Point p = circuit.getCoordsOfEndpoint(e);
+        result.push_back(p);
     }
 
     return result;

@@ -6,6 +6,7 @@
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
+#include <utility>
 
 #include "CellsLoader.h"
 #include "CellsAllocator.h"
@@ -46,7 +47,8 @@ try {
     // Place cells on an area. Getting width and height of the area.
     auto [width, height] = CellsAllocator::allocate(cells);
     // Creating wires in the area.
-    auto wires = Router::route(cells, conns, width, height);
+    Circuit circuit(std::move(cells), width, height);
+    Router::route(circuit, conns);
 
     std::ofstream outFile(argv[3]);
     if (!outFile) {
@@ -57,9 +59,9 @@ try {
     // Writing results of the program into output file.
     try {
         json out;
-        Router::writeSizeInJSON(out, width, height);
-        Cell::toJSON(out, cells);
-        wires.toJSON(out);
+        Router::writeSizeInJSON(out, circuit.getWidth(), circuit.getHeight());
+        Cell::toJSON(out, circuit.getCells());
+        circuit.getWires().toJSON(out);
         outFile << out;
     }
     catch (const Exception& e) {
