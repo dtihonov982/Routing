@@ -1,3 +1,8 @@
+// Wire routing program
+// Usage: route input_json cells_json output_json
+// Author: Dmitrii Tikhonov
+// Email: dtihonov982@gmail.com
+
 #include <fstream>
 #include <iostream>
 #include <stdexcept>
@@ -11,15 +16,16 @@
 
 using json = nlohmann::json;
 
-int main(int argc, char** argv) try {
-    if(argc != 4)
-    {
-        std::cerr << "Usage: tracer input_json cells_json output_json" << std::endl;
+int main(int argc, char** argv) 
+try {
+    if(argc != 4) {
+        std::cerr << "Usage: route input_json cells_json output_json" << std::endl;
         return EXIT_FAILURE;
     }
+
     std::ifstream cellsJsonFile(argv[2]);
     if (!cellsJsonFile) {
-        std::cerr << "Can not open " << argv[2] << std::endl;
+        std::cerr << "Can't open " << argv[2] << std::endl;
         return EXIT_FAILURE;
     }
 
@@ -29,7 +35,7 @@ int main(int argc, char** argv) try {
 
     std::ifstream inputJsonFile(argv[1]);
     if (!inputJsonFile) {
-        std::cerr << "Can not open " << argv[1] << std::endl;
+        std::cerr << "Can't open " << argv[1] << std::endl;
         return EXIT_FAILURE;
     }
 
@@ -44,7 +50,7 @@ int main(int argc, char** argv) try {
 
     std::ofstream outFile(argv[3]);
     if (!outFile) {
-        std::cerr << "Can not open " << argv[3] << std::endl;
+        std::cerr << "Can't open " << argv[3] << std::endl;
         return EXIT_FAILURE;
     }
 

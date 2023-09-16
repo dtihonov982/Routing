@@ -7,6 +7,7 @@ struct Endpoint {
     Endpoint() {}
     Endpoint(const std::string& cellName_, const std::string& cellPinName_):
     cellName(cellName_), cellPinName(cellPinName_) {}
+
     std::string cellName;
     std::string cellPinName;
 };

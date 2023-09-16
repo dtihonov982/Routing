@@ -27,11 +27,6 @@ Wires Router::route(const CellsMap& cells, const ConnectionsMap& conns, int& wid
     return result;
 }
 
-// Each connection has horizontal line. Height of the line is 'level' of connection.
-double getConnLevel(int numOfConn) {
-    return CELL_HEIGHT + WIRE_MIN_WIDTH * (1 + 2 * numOfConn);
-}
-
 // For each endpoint finds its coordinates (x, y) on the plane
 std::vector<Point> resolveEndpoints(const CellsMap& cells, const std::vector<Endpoint>& eps) {
     std::vector<Point> result;
@@ -60,27 +55,6 @@ std::vector<Point> resolveEndpoints(const CellsMap& cells, const std::vector<End
     }
 
     return result;
-}
-
-//   +----+ < upY
-//   |    |
-//   |    |
-//     ..  
-//   |    |
-//   |    |
-//   o----+
-//   ^ bottom
-Rect makeVerticalWire(const Point& bottom, double upY) {
-    return {bottom.x, bottom.y, bottom.x + WIRE_MIN_WIDTH, upY};
-}
-
-//   +----+ 
-//   |    |
-//   |    |
-//   o----+
-//   ^ Point p
-Rect makeVia(double x, double y) {
-    return {x, y, x + WIRE_MIN_WIDTH, y + WIRE_MIN_WIDTH};
 }
 
 // Create wires that connets given points. Num arguments need to evaluate height of horizontal wire.
@@ -129,6 +103,32 @@ Wires createWires(std::vector<Point>&& points, int numOfConn) {
     }
 
     return result;
+}
+
+// Each connection has horizontal line. Height of the line is 'level' of connection.
+double getConnLevel(int numOfConn) {
+    return CELL_HEIGHT + WIRE_MIN_WIDTH * (1 + 2 * numOfConn);
+}
+
+//   +----+ < upY
+//   |    |
+//   |    |
+//     ..  
+//   |    |
+//   |    |
+//   o----+
+//   ^ bottom
+Rect makeVerticalWire(const Point& bottom, double upY) {
+    return {bottom.x, bottom.y, bottom.x + WIRE_MIN_WIDTH, upY};
+}
+
+//   +----+ 
+//   |    |
+//   |    |
+//   o----+
+//   ^(x, y)
+Rect makeVia(double x, double y) {
+    return {x, y, x + WIRE_MIN_WIDTH, y + WIRE_MIN_WIDTH};
 }
 
 // Write size of an area to json file
