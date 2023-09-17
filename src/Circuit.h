@@ -5,7 +5,6 @@
 #include "Cell.h"
 #include "Endpoint.h"
 #include "Wires.h"
-#include "Point.h"
 
 using json = nlohmann::json;
 
@@ -32,12 +31,7 @@ public:
 
     Connections getConnections() const;
 
-#if 0
-    Point getCoordsOfEndpoint(const Endpoint& e) const;
-    std::vector<Point> getCoordsOfEndpoints(const std::vector<Endpoint>& eps) const;
-#endif
-
-    json toJSON() const;
+    void toJSON(json& j) const;
 private:
     Cells cells_;
     Wires wires_;

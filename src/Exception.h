@@ -1,5 +1,4 @@
-#ifndef EXCEPTION_H
-#define EXCEPTION_H
+#pragma once
 
 #include <stdexcept>
 #include <sstream>
@@ -20,5 +19,3 @@ public:
 private:
     std::string message_;
 };
-
-#endif //EXCEPTION_H

@@ -46,7 +46,7 @@ try {
     json inputJson = json::parse(inputJsonFile);
     auto cells = CellsLoader::fromJSON(types, inputJson);
 
-    // Allocating cells on circuit, routing wires.
+    // Allocating cells on circuit, find connections, routing wires.
     Circuit circuit = CircuitBuilder::build(std::move(cells));
 
     // Open output file.
@@ -56,8 +56,10 @@ try {
         return EXIT_FAILURE;
     }
 
-    // Writing results of the program into output file.
-    outFile << circuit.toJSON();
+    // Dump information about circuit (size, allocation, wires) into the file.
+    json circuitDump;
+    circuit.toJSON(circuitDump);
+    outFile << circuitDump;
 
     return EXIT_SUCCESS;
 }
