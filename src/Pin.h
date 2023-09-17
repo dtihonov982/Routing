@@ -16,8 +16,8 @@ using PinsMap = std::unordered_map<std::string, Pin>;
 class Pin {
 public:
     Pin(const std::string& name, const Rect& rect): name_(name), rect_(rect) {}
-    std::string getName() { return name_; }
-    static PinsMap fromJSON(const json& j);
+    std::string getName() const { return name_; }
+    static std::vector<Pin> fromJSON(const json& j);
     Point getPosition() const { return {rect_.x0, rect_.y0}; }
 private:
     std::string name_;

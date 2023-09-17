@@ -16,9 +16,7 @@ using TypesMap = std::unordered_map<std::string, CellType>;
 
 class CellType {
 public:
-    CellType(const std::string& name, int width, const PinsMap& pins)
-    : name_(name), width_(width), pins_(pins) {
-    }
+    CellType(const std::string& name, int width, const std::vector<Pin>& pins);
 
     // Using TypesMap instead vector for fast searching a type while loading cells in CellsLoader
     static TypesMap fromJSON(const json& j);
@@ -33,5 +31,5 @@ private:
     std::string name_;
     int width_;
     int height_ = CELL_HEIGHT;
-    PinsMap pins_;
+    std::vector<Pin> pins_;
 };

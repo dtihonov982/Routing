@@ -3,6 +3,10 @@
 #include "CellType.h"
 #include "Exception.h"
 
+CellType::CellType(const std::string& name, int width, const std::vector<Pin>& pins)
+: name_(name), width_(width), pins_(pins) {
+}
+
 TypesMap CellType::fromJSON(const json& j) {
     if (!j.is_object()) {
         throw Exception("Error while loading cell type from json.");
@@ -10,7 +14,7 @@ TypesMap CellType::fromJSON(const json& j) {
 
     TypesMap result;
     int width;
-    PinsMap pins;
+    std::vector<Pin> pins;
     for (auto& [typeName, value]: j.items()) {
         if (value.find("width") != value.end()) {
             width = value["width"];
@@ -32,8 +36,10 @@ TypesMap CellType::fromJSON(const json& j) {
 }
 
 const Pin& CellType::getPin(const std::string& name) const {
-    auto it = pins_.find(name);
-    if (it == pins_.end())
-        throw Exception("Can't find pin with name ", name, ".");
-    return it->second;
+    for (auto& pin: pins_) {
+        if (pin.getName() == name) {
+            return pin;
+        }
+    }
+    throw Exception("Can't find pin with name ", name, ".");
 }
