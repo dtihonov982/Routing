@@ -7,9 +7,9 @@
 
 #include "Pin.h"
 
-using json = nlohmann::json;
-
 #define CELL_HEIGHT 1
+
+using json = nlohmann::json;
 
 class CellType;
 using TypesMap = std::unordered_map<std::string, CellType>;

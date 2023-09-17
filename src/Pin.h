@@ -10,9 +10,6 @@
 
 using json = nlohmann::json;
 
-class Pin;
-using PinsMap = std::unordered_map<std::string, Pin>;
-
 class Pin {
 public:
     Pin(const std::string& name, const Rect& rect): name_(name), rect_(rect) {}
