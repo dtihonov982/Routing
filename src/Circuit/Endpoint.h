@@ -3,7 +3,7 @@
 #include <string>
 #include <unordered_map>
 
-#include "Point.h"
+#include "Common/Point.h"
 
 // Endpoint is a pin of certain cell on circuit
 struct Endpoint {

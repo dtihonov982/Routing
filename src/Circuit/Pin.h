@@ -5,8 +5,8 @@
 
 #include "nlohmann/json.hpp"
 
-#include "Rect.h"
-#include "Point.h"
+#include "Common/Rect.h"
+#include "Common/Point.h"
 
 using json = nlohmann::json;
 

@@ -1,5 +1,5 @@
 #include "Cell.h"
-#include "Exception.h"
+#include "Common/Exception.h"
 
 #include <string>
 

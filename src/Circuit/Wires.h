@@ -5,7 +5,7 @@
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
-#include "Rect.h"
+#include "Common/Rect.h"
 
 #define WIRE_MIN_WIDTH 0.1
 

@@ -1,7 +1,7 @@
 #include <vector>
 
 #include "Circuit.h"
-#include "Exception.h"
+#include "Common/Exception.h"
 
 void Circuit::toJSON(json& j) const {
     std::vector<int> sizeVect{width_, height_};

@@ -1,5 +1,5 @@
 #include "Pin.h"
-#include "Exception.h"
+#include "Common/Exception.h"
 
 std::vector<Pin> Pin::fromJSON(const json& j) {
     if (!j.is_object()) {

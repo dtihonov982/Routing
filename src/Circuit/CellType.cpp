@@ -1,7 +1,7 @@
 #include <utility>
 
 #include "CellType.h"
-#include "Exception.h"
+#include "Common/Exception.h"
 
 CellType::CellType(const std::string& name, int width, const std::vector<Pin>& pins)
 : name_(name), width_(width), pins_(pins) {

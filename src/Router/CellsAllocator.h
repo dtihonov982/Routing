@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Cell.h"
+#include "Circuit/Cell.h"
 
 class CellsAllocator {
 public:

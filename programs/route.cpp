@@ -8,9 +8,9 @@
 #include <stdexcept>
 #include <utility>
 
-#include "Exception.h"
-#include "CellType.h"
-#include "CircuitBuilder.h"
+#include "Common/Exception.h"
+#include "Circuit/CellType.h"
+#include "Router/CircuitBuilder.h"
 
 #include "nlohmann/json.hpp"
 

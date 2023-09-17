@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Cell.h"
-#include "Circuit.h"
+#include "Circuit/Cell.h"
+#include "Circuit/Circuit.h"
 
 class CircuitBuilder {
 public:

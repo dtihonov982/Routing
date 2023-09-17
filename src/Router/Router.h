@@ -5,7 +5,7 @@
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
 
-#include "Circuit.h"
+#include "Circuit/Circuit.h"
 
 class Router {
 public:

@@ -4,9 +4,9 @@
 #include <cmath>
 
 #include "Router.h"
-#include "Exception.h"
-#include "Point.h"
-#include "Wires.h"
+#include "Common/Exception.h"
+#include "Common/Point.h"
+#include "Circuit/Wires.h"
 
 Wires createWires(std::vector<Point>&& points, int num);
 double getConnLevel(int num);
