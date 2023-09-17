@@ -6,7 +6,6 @@
 #include "Router.h"
 #include "Exception.h"
 #include "Point.h"
-#include "ConnectionsExtractor.h"
 #include "Wires.h"
 
 Wires createWires(std::vector<Point>&& points, int num);
@@ -19,7 +18,7 @@ void Router::route(Circuit& circuit) {
     int numOfConnection = 0;
     Wires wires;
     for (auto& [name, points]: conns) {
-        Wires currentWires = createWires(std::move(points), numOfConnection);
+        Wires currentWires = createWires(std::move(points), numOfConnection++);
         wires.addWires(currentWires);
     }
     circuit.setWires(std::move(wires));

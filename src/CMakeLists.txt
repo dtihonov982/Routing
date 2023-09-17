@@ -10,7 +10,7 @@ set (ROUTER_SRCS
           Wires.cpp
           Circuit.cpp
           Router.cpp
-          #CircuitBuilder.cpp
+          CircuitBuilder.cpp
 )
 
 add_library (Router STATIC ${ROUTER_SRCS})

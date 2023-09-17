@@ -52,12 +52,12 @@ try {
 
     // Loading cells and connections between them from file.
     json inputJson = json::parse(inputJsonFile);
-    auto [cells, conns] = CellsLoader::fromJSON(types, inputJson);
+    auto cells = CellsLoader::fromJSON(types, inputJson);
 
     // Allocating cells on circuit, routing wires.
     Circuit circuit;
     try {
-        circuit = CircuitBuilder::build(std::move(cells), conns);
+        circuit = CircuitBuilder::build(std::move(cells));
     }
     catch (const Exception& e) {
         std::cerr << "Can't build circuit: " << e.what() << std::endl;

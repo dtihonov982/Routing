@@ -9,6 +9,6 @@ set(CMAKE_CXX_FLAGS "-Wall -Wextra")
 set(CMAKE_CXX_FLAGS_DEBUG "-g")
 set(CMAKE_CXX_FLAGS_RELEASE "-O2")
 
-#add_subdirectory(programs)
+add_subdirectory(programs)
 add_subdirectory(src)
 #add_subdirectory(tests)
