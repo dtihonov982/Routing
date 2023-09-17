@@ -28,3 +28,16 @@ void Cell::toJSON(json& j, const CellsMap& cells) {
     j["cells"] = tmp;
 
 }
+
+std::vector<Endpoint> Cell::getEndpoints() const {
+    std::vector<Endpoint> result;
+
+    for (const auto& [pinName, connName]: conns_) {
+        auto& pin = type_.getPin(pinName);
+        Point pinRelativePos = pin.getPosition();
+        Point pinAbsolutePos {x_ + pinRelativePos.x, y_ + pinRelativePos.y};
+        result.push_back({connName, pinAbsolutePos});
+    }
+
+    return result;
+}

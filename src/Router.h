@@ -9,6 +9,7 @@ using json = nlohmann::json;
 
 class Router {
 public:
+    // Create wires on circuit and update a size of circuit.
     static void route(Circuit& circuit);
 };
 

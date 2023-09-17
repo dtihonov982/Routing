@@ -7,9 +7,9 @@ set (ROUTER_SRCS
           Cell.cpp
           CellsLoader.cpp
           CellsAllocator.cpp
-          #Wires.cpp
+          Wires.cpp
           Circuit.cpp
-          #Router.cpp
+          Router.cpp
           #CircuitBuilder.cpp
 )
 

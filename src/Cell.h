@@ -1,9 +1,11 @@
 #pragma once
 
 #include <string>
+#include <vector>
 #include <unordered_map>
 
 #include "CellType.h"
+#include "Endpoint.h"
 
 #include "nlohmann/json.hpp"
 using json = nlohmann::json;
@@ -35,6 +37,8 @@ public:
     void setConnections(const std::unordered_map<std::string, std::string>& conns) {
         conns_ = conns;
     }
+
+    std::vector<Endpoint> getEndpoints() const;
 
 private:
     std::string name_;

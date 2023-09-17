@@ -1,5 +1,7 @@
 #include <algorithm>
 
+#include <vector>
+
 #include "Circuit.h"
 #include "Exception.h"
 
@@ -40,6 +42,7 @@ json Circuit::toJSON() const {
     return j;
 }
 
+#if 0
 std::vector<Point> Circuit::getCoordsOfEndpoints(const std::vector<Endpoint>& eps) const {
     std::vector<Point> result(eps.size());
     std::transform(eps.begin(), eps.end(), result.begin(), 
@@ -49,3 +52,26 @@ std::vector<Point> Circuit::getCoordsOfEndpoints(const std::vector<Endpoint>& ep
     );
     return result;
 }
+#endif
+
+
+Connections groupByConnName(const std::vector<Endpoint>& endpoints);
+
+Connections Circuit::getConnections() const {
+    std::vector<Endpoint> endpoints;
+    // Extract all connections with real position on circuit
+    for (auto& cell: cells_) {
+        auto currEps = cell.getEndpoints();
+        endpoints.insert(endpoints.end(), currEps.begin(), currEps.end());
+    }
+    return groupByConnName(endpoints);
+}
+
+Connections groupByConnName(const std::vector<Endpoint>& endpoints) {
+    Connections conns;
+    for (auto& ep: endpoints) {
+        conns[ep.connName].push_back(ep.pinPos);
+    }
+    return conns;
+}
+
