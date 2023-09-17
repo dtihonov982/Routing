@@ -7,10 +7,10 @@ set (ROUTER_SRCS
           Cell.cpp
           CellsLoader.cpp
           CellsAllocator.cpp
-          Wires.cpp
+          #Wires.cpp
           Circuit.cpp
-          Router.cpp
-          CircuitBuilder.cpp
+          #Router.cpp
+          #CircuitBuilder.cpp
 )
 
 add_library (Router STATIC ${ROUTER_SRCS})

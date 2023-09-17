@@ -3,11 +3,13 @@
 #include "CellsLoader.h"
 #include "Exception.h"
 
+#if 0
 void addConnections(ConnectionsMap& info, const std::string& cellName, const json& j);
 void parseConnectionsObject(const json& j, const std::string& cellName, ConnectionsMap& conns);
+#endif
 std::string getValueOfTypeObject(const json& j);
 
-std::pair<CellsMap, ConnectionsMap> CellsLoader::fromJSON(const TypesMap& types, const json& j) {
+Cells CellsLoader::fromJSON(const TypesMap& types, const json& j) {
     if (!j.is_object()) {
         throw Exception("Error while loading cells from json.");
     }
@@ -17,18 +19,16 @@ std::pair<CellsMap, ConnectionsMap> CellsLoader::fromJSON(const TypesMap& types,
     }
     auto& obj = j["cells"];
 
-    CellsMap cells;
-    ConnectionsMap conns;
+    Cells cells;
     std::string typeName;
     for (auto& [cellName, cellInfo]: obj.items()) {
         auto typeName = getValueOfTypeObject(cellInfo);
         auto cell = Cell::createCellWithType(cellName, types, typeName);
-        cells.emplace(cellName, std::move(cell));
-
-        parseConnectionsObject(cellInfo, cellName, conns);
+        cell.setConnections(cellInfo["connections"]);
+        cells.push_back(std::move(cell));
     }
 
-    return {cells, conns};
+    return cells;
 }
 
 std::string getValueOfTypeObject(const json& j) {
@@ -40,6 +40,7 @@ std::string getValueOfTypeObject(const json& j) {
     }
 }
 
+#if 0
 // Connections stores apart from each cell. There is no need to know about cell while routing connections.
 // But it is need to know about each pin position while routing. In this solution each connection stores name of cell and pin.
 // Router finds related cell and pin by his name and evaluates pin coordinates.
@@ -68,4 +69,5 @@ void parseConnectionsObject(const json& j, const std::string& cellName, Connecti
         throw Exception("No 'connections' value in current json object.");
     }
 }
+#endif
 

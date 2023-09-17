@@ -3,6 +3,7 @@
 #include "Circuit.h"
 #include "Exception.h"
 
+#if 0
 Point Circuit::getCoordsOfEndpoint(const Endpoint& e) const {
     auto it = cells_.find(e.cellName);
     if (it == cells_.end())
@@ -21,6 +22,7 @@ Point Circuit::getCoordsOfEndpoint(const Endpoint& e) const {
 
     return {x, y};
 }
+#endif
 
 json Circuit::toJSON() const {
     json j;
@@ -28,7 +30,7 @@ json Circuit::toJSON() const {
     j["size"] = sizeVect;
 
     json tmp;
-    for (const auto& [name, cell]: cells_) {
+    for (const auto& cell: cells_) {
         cell.toJSON(tmp);
     }
     j["cells"] = tmp;

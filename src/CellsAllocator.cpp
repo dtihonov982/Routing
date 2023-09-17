@@ -1,10 +1,10 @@
 #include "CellsAllocator.h"
 
 // All cells on the same line on the bottom of the area.
-std::pair<int, int> CellsAllocator::allocate(CellsMap& cells) {
+std::pair<int, int> CellsAllocator::allocate(Cells& cells) {
     int currX = 0;
     int currY = 0;
-    for (auto& [name, cell]: cells) {
+    for (auto& cell: cells) {
         cell.setX(currX);
         cell.setY(currY);
         auto type = cell.getType();
