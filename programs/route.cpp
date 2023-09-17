@@ -33,15 +33,7 @@ try {
 
     // Loading cells types from json file
     json cellsTypeJson = json::parse(cellsJsonFile);
-    TypesMap types;
-    try {
-        types = CellType::fromJSON(cellsTypeJson);
-    }
-    catch (const Exception& e) {
-        std::cerr << "Can't load information about cells types: " 
-                  << e.what() << std::endl;
-        return EXIT_FAILURE;
-    }
+    TypesMap types = CellType::fromJSON(cellsTypeJson);
 
     // Open file with cells and connections
     std::ifstream inputJsonFile(argv[1]);
@@ -55,14 +47,7 @@ try {
     auto cells = CellsLoader::fromJSON(types, inputJson);
 
     // Allocating cells on circuit, routing wires.
-    Circuit circuit;
-    try {
-        circuit = CircuitBuilder::build(std::move(cells));
-    }
-    catch (const Exception& e) {
-        std::cerr << "Can't build circuit: " << e.what() << std::endl;
-        return EXIT_FAILURE;
-    }
+    Circuit circuit = CircuitBuilder::build(std::move(cells));
 
     // Open output file.
     std::ofstream outFile(argv[3]);
@@ -72,14 +57,7 @@ try {
     }
 
     // Writing results of the program into output file.
-    try {
-        outFile << circuit.toJSON();
-    }
-    catch (const Exception& e) {
-        std::cerr << "Error while saving circuit in " << argv[3] << ": "
-            << e.what() << std::endl;
-        return EXIT_FAILURE;
-    }
+    outFile << circuit.toJSON();
 
     return EXIT_SUCCESS;
 }
