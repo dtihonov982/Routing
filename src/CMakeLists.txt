@@ -17,5 +17,5 @@ add_library (Router STATIC ${ROUTER_SRCS})
 
 target_include_directories (Router PUBLIC "${PROJECT_SOURCE_DIR}/src"
                                            "${PROJECT_SOURCE_DIR}/include")
-target_compile_options (Router PUBLIC -fsanitize=address)
-target_link_options (Router PUBLIC -fsanitize=address)
+#target_compile_options (Router PUBLIC -fsanitize=address)
+#target_link_options (Router PUBLIC -fsanitize=address)
