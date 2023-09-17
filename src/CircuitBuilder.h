@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Endpoint.h"
+#include "Cell.h"
 #include "Circuit.h"
 
 class CircuitBuilder {
