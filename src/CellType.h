@@ -31,5 +31,7 @@ private:
     std::string name_;
     int width_;
     int height_ = CELL_HEIGHT;
+    // The number of pins less than 10. So there is no need to use unordered_map.
+    // It is simpler and may be faster to use linear search through vector.
     std::vector<Pin> pins_;
 };

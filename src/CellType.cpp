@@ -35,6 +35,7 @@ TypesMap CellType::fromJSON(const json& j) {
     return result;
 }
 
+// Pins count less than 10. So brute linear search.
 const Pin& CellType::getPin(const std::string& name) const {
     for (auto& pin: pins_) {
         if (pin.getName() == name) {
