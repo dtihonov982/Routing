@@ -1,11 +1,11 @@
 #include "Pin.h"
 #include "Exception.h"
 
-std::unordered_map<std::string, Pin> Pin::fromJSON(const json& j) {
+PinsMap Pin::fromJSON(const json& j) {
     if (!j.is_object()) {
         throw Exception("Error while parsing pin from json.");
     }
-    std::unordered_map<std::string, Pin> result;
+    PinsMap result;
     for (auto& [key, value]: j.items()) {
         auto rect = Rect::loadFromJSON(value);
         Pin pin(key, rect);

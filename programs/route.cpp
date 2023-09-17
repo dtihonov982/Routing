@@ -24,6 +24,7 @@ try {
         return EXIT_FAILURE;
     }
 
+    // Open json file with cell types
     std::ifstream cellsJsonFile(argv[2]);
     if (!cellsJsonFile) {
         std::cerr << "Can't open " << argv[2] << std::endl;
@@ -37,21 +38,23 @@ try {
         types = CellType::fromJSON(cellsTypeJson);
     }
     catch (const Exception& e) {
-        std::cerr << "Can't load information about cells types: " << e.what() << std::endl;
+        std::cerr << "Can't load information about cells types: " 
+                  << e.what() << std::endl;
         return EXIT_FAILURE;
     }
 
+    // Open file with cells and connections
     std::ifstream inputJsonFile(argv[1]);
     if (!inputJsonFile) {
         std::cerr << "Can't open " << argv[1] << std::endl;
         return EXIT_FAILURE;
     }
 
-    json inputJson = json::parse(inputJsonFile);
-
     // Loading cells and connections between them from file.
+    json inputJson = json::parse(inputJsonFile);
     auto [cells, conns] = CellsLoader::fromJSON(types, inputJson);
 
+    // Allocating cells on circuit, routing wires.
     Circuit circuit;
     try {
         circuit = CircuitBuilder::build(std::move(cells), conns);
@@ -61,6 +64,7 @@ try {
         return EXIT_FAILURE;
     }
 
+    // Open output file.
     std::ofstream outFile(argv[3]);
     if (!outFile) {
         std::cerr << "Can't open " << argv[3] << std::endl;
@@ -77,9 +81,11 @@ try {
         return EXIT_FAILURE;
     }
 
-    return 0;
+    return EXIT_SUCCESS;
 }
 catch (const std::exception& e) {
     std::cerr << "Error: " << e.what() << std::endl;
     return EXIT_FAILURE;
 }
+
+

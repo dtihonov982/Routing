@@ -16,7 +16,7 @@ using TypesMap = std::unordered_map<std::string, CellType>;
 
 class CellType {
 public:
-    CellType(const std::string& name, int width, const std::unordered_map<std::string, Pin>& pins)
+    CellType(const std::string& name, int width, const PinsMap& pins)
     : name_(name), width_(width), pins_(pins) {
     }
 
@@ -33,5 +33,5 @@ private:
     std::string name_;
     int width_;
     int height_ = CELL_HEIGHT;
-    std::unordered_map<std::string, Pin> pins_;
+    PinsMap pins_;
 };

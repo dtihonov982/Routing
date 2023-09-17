@@ -3,14 +3,14 @@
 #include "CellType.h"
 #include "Exception.h"
 
-std::unordered_map<std::string, CellType> CellType::fromJSON(const json& j) {
+TypesMap CellType::fromJSON(const json& j) {
     if (!j.is_object()) {
-        throw Exception("Error while cell type from json.");
+        throw Exception("Error while loading cell type from json.");
     }
 
-    std::unordered_map<std::string, CellType> result;
+    TypesMap result;
     int width;
-    std::unordered_map<std::string, Pin> pins;
+    PinsMap pins;
     for (auto& [typeName, value]: j.items()) {
         if (value.find("width") != value.end()) {
             width = value["width"];
