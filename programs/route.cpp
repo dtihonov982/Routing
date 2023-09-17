@@ -10,7 +10,6 @@
 
 #include "Exception.h"
 #include "CellType.h"
-#include "CellsLoader.h"
 #include "CircuitBuilder.h"
 
 #include "nlohmann/json.hpp"
@@ -44,7 +43,7 @@ try {
 
     // Loading cells and connections between them from file.
     json inputJson = json::parse(inputJsonFile);
-    auto cells = CellsLoader::fromJSON(types, inputJson);
+    auto cells = Cell::fromJSON(types, inputJson);
 
     // Allocating cells on circuit, find connections, routing wires.
     Circuit circuit = CircuitBuilder::build(std::move(cells));

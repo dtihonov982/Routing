@@ -32,7 +32,9 @@ public:
     void toJSON(json& j) const;
     
     static Cell createCellWithType(const std::string& cellName, const TypesMap& types, const std::string& typeName);
+
     static void toJSON(json& j, const CellsMap& cells);
+    static Cells fromJSON(const TypesMap& types, const json& j);
 
     void setConnections(const std::unordered_map<std::string, std::string>& conns) {
         conns_ = conns;

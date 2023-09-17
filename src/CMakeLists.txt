@@ -5,7 +5,6 @@ set (ROUTER_SRCS
           Pin.cpp
           CellType.cpp
           Cell.cpp
-          CellsLoader.cpp
           CellsAllocator.cpp
           Wires.cpp
           Circuit.cpp
