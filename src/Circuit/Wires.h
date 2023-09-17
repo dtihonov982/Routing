@@ -7,7 +7,9 @@ using json = nlohmann::json;
 
 #include "Common/Rect.h"
 
-#define WIRE_MIN_WIDTH 0.1
+// +0.01 to avoid problems with comparing floating point 
+// numbers when check width >= 0.1 condition
+#define WIRE_MIN_WIDTH 0.11
 
 class Wires {
 public:
