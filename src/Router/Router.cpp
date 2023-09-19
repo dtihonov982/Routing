@@ -44,12 +44,15 @@ Wires createWires(std::vector<Point>&& points, int numOfConn) {
 
     //   +----+-------------+----+-------------+----+
     //   |Via |    hWire    |    |    hWire    |Via | 
-    //   |    |     w1      |    |     w1      |    | 
+    //   |    |     w0      |    |     w0      |    | 
     //   +----+-------------+----+-------------+----+ < horizontalWireY
     //   |    |             |    |             |    | 
-    //   | w0 |             | w0 |             | w0 | 
+    //   | w1 |             | w1 |             | w1 | 
     //   |    |             |    |             |    | 
-    //   |    |             o----+             |    | 
+    //   |    |             +----+             |    | 
+    //   |    |             |Via |             +----+ 
+    //   +----+             |    |             |Via | 
+    //   |Via |             o----+             |    | 
     //   |    |                                o----+ 
     //   o----+                                ^ lastPoint        
     //   ^ firstPoint                           
@@ -60,16 +63,18 @@ Wires createWires(std::vector<Point>&& points, int numOfConn) {
                   lastPoint.x + WIRE_MIN_WIDTH, 
                   horizontalWireY + WIRE_MIN_WIDTH};
     Wires result;
-    result.addWire1(hWire);
+    result.addWire0(hWire);
 
-    // Create vertical wires and via with horizontal line.
+    // Create vertical wires and via with horizontal line and pins
 
     for (auto& p: points) {
-        auto w0 = makeVerticalWire(p, horizontalWireY);
-        result.addWire0(w0);
+        auto w1 = makeVerticalWire(p, horizontalWireY + WIRE_MIN_WIDTH);
+        result.addWire1(w1);
 
-        auto via = makeVia(p.x, horizontalWireY);
-        result.addVia(via);
+        auto viaWithHor = makeVia(p.x, horizontalWireY);
+        result.addVia(viaWithHor);
+        auto viaWithPin = makeVia(p.x, p.y);
+        result.addVia(viaWithPin);
     }
 
     return result;
