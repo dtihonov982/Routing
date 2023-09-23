@@ -7,6 +7,6 @@ set (COMMON_SRCS
 add_library (Common STATIC ${COMMON_SRCS})
 
 target_include_directories (Common PUBLIC "${PROJECT_SOURCE_DIR}/src"
-                                           "${PROJECT_SOURCE_DIR}/include")
+                                           "${PROJECT_SOURCE_DIR}/json/include")
 #target_compile_options (Router PUBLIC -fsanitize=address)
 #target_link_options (Router PUBLIC -fsanitize=address)

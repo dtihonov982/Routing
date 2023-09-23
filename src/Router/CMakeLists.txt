@@ -9,6 +9,6 @@ set (ROUTER_SRCS
 add_library (Router STATIC ${ROUTER_SRCS})
 target_link_libraries (Router PRIVATE Common Circuit)
 target_include_directories (Router PUBLIC "${PROJECT_SOURCE_DIR}/src"
-                                           "${PROJECT_SOURCE_DIR}/include")
+                                           "${PROJECT_SOURCE_DIR}/json/include")
 #target_compile_options (Router PUBLIC -fsanitize=address)
 #target_link_options (Router PUBLIC -fsanitize=address)
